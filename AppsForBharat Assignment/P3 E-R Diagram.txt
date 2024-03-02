@@ -1,0 +1,99 @@
+// Use DBML to define your database structure
+// Docs: https://dbml.dbdiagram.io/docs
+
+Table flower_offered {
+  Id INT [pk]
+  User_id INT
+  Device_id VARCHAR(50)
+  God_ID INT
+  Flower_Id INT
+  Condition VARCHAR(20)
+  TimeStamp TIMESTAMP
+}
+
+Table "Events table" {
+  Id INT [pk]
+  User_id INT
+  Device_id VARCHAR(50)
+  Events VARCHAR(50)
+  TimeStamp TIMESTAMP
+}
+
+Table flower_claimed {
+  Id INT [pk]
+  User_id INT
+  Device_id VARCHAR(50)
+  God_ID INT
+  Flower_Id INT
+  TimeStamp TIMESTAMP
+}
+
+Table God_profile {
+  God_id INT [pk]
+  God_name VARCHAR(50)
+  Timestamp TIMESTAMP
+  Updated_at TIME
+  Updated_at2 TIME
+}
+
+Table Flower_profile {
+  Flower_id INT [pk]
+  Flower_name VARCHAR(50)
+  Timestamp TIMESTAMP
+  Updated_at TIME
+  Updated_at2 TIME
+}
+
+Table Install {
+  Id INT [pk]
+  Guest_Id INT
+  User_id INT
+  Device_id VARCHAR(50)
+  Timestamp TIMESTAMP
+  Login_status INT
+}
+
+Table User_engagement {
+  Id INT [pk]
+  Guest_Id INT
+  User_id INT
+  Device_id VARCHAR(50)
+  Timestamp TIMESTAMP
+  Login_status INT
+}
+
+
+
+
+
+
+
+Ref: "Flower_profile"."Flower_id" < "flower_offered"."Flower_Id"
+
+Ref: "Flower_profile"."Flower_id" < "flower_claimed"."Flower_Id"
+
+Ref: "God_profile"."God_id" < "flower_offered"."God_ID"
+
+Ref: "God_profile"."God_id" < "flower_claimed"."God_ID"
+
+
+
+
+
+Ref: "Install"."User_id" < "Events table"."User_id"
+
+Ref: "Install"."User_id" < "User_engagement"."User_id"
+
+Ref: "Install"."Device_id" < "User_engagement"."Device_id"
+
+Ref: "Install"."Guest_Id" < "User_engagement"."Guest_Id"
+
+Ref: "Install"."Device_id" < "Events table"."Device_id"
+
+Ref: "Install"."User_id" < "flower_offered"."User_id"
+
+Ref: "Install"."User_id" < "flower_claimed"."User_id"
+
+Ref: "Install"."Device_id" < "flower_offered"."Device_id"
+
+Ref: "Install"."Device_id" < "flower_claimed"."Device_id"
